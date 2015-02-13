@@ -1,0 +1,12 @@
+Screens Density:
+----------------
+
+- ldpi: 1dp = 0.75px
+
+- mdpi: 1dp = 1px
+
+- hdpi: 1dp = 1.5px
+
+- xhdpi: 1dp = 2px
+
+- xxhdpi: 1dp = 3px

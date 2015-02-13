@@ -1,66 +1,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearLayout_main"
+    android:id="@+id/mainLinearLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:id="@+id/relativeLayout_main"
+        android:id="@+id/mainSubRelativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
+        android:layout_height="match_parent" >
+    
         <ImageView
-            android:id="@+id/imgViewTopBar_main"
+            android:id="@+id/mainImgViewBackground"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:src="@android:color/black" />
-
-        <ImageView
-            android:id="@+id/imgViewMoreOptions_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_more" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:src="@android:color/darker_gray" />
 
         <ScrollView
-            android:id="@+id/scrollView1"
+            android:id="@+id/mainScrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent" >
 
             <LinearLayout
+                android:id="@+id/mainScrollViewLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical" >   
+                android:orientation="vertical" >
 
-                <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Large Text"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Large Text"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                 <ImageView
-                    android:id="@+id/imgViewBackground_main"
-                    android:layout_width="match_parent"
-                    android:layout_height="1000dp"
-                    android:src="@android:color/darker_gray" />
-                
             </LinearLayout>
-        </ScrollView>
-
-    </LinearLayout>
+            
+        </ScrollView> 
+        
+    </RelativeLayout>
     
 </LinearLayout>
