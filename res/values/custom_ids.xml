@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="scrollViewItemRelativeLayout1"/>
+    <item type="id" name="scrollViewItemRelativeLayout2"/>
+    <item type="id" name="scrollViewItemRelativeLayout3"/>
+    <item type="id" name="scrollViewItemRelativeLayout4"/>
+    <item type="id" name="scrollViewItemRelativeLayout5"/>
+    <item type="id" name="scrollViewItemRelativeLayout6"/>
+    <item type="id" name="scrollViewItemRelativeLayout7"/>
+    <item type="id" name="scrollViewItemRelativeLayout8"/>
+    <item type="id" name="scrollViewItemRelativeLayout9"/>
+</resources>
