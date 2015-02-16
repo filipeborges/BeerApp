@@ -15,20 +15,11 @@
             android:layout_height="match_parent"
             android:src="@android:color/darker_gray" />
 
-        <ScrollView
-            android:id="@+id/mainScrollView"
+        <ListView
+            android:id="@+id/mainListView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <LinearLayout
-                android:id="@+id/mainScrollViewLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" >
-
-            </LinearLayout>
-            
-        </ScrollView> 
+            android:layout_height="wrap_content" >
+        </ListView>
         
     </RelativeLayout>
     

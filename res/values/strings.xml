@@ -4,13 +4,4 @@
     <string name="app_name">BeerApp</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="txtViewItem1">Opção 1</string>
-	<string name="txtViewItem2">Opção 2</string>
-    <string name="txtViewItem3">Opção 3</string>
-    <string name="txtViewItem4">Opção 4</string>
-    <string name="txtViewItem5">Opção 5</string>
-    <string name="txtViewItem6">Opção 6</string>
-    <string name="txtViewItem7">Opção 7</string>
-    <string name="txtViewItem8">Opção 8</string>
-    <string name="txtViewItem9">Opção 9</string>
 </resources>
