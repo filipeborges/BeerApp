@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -17,4 +17,75 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <!-- @@@@@@@@@@@@@@@@@@@@@ activity_main.xml Styles @@@@@@@@@@@@@@@@@@@@@@ -->
+    <style name="mainImgViewBgdColor">
+        <item name="android:src">#000000</item>
+        <item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="mainImgViewBgd">
+        <item name="android:src">@drawable/main_beer_img_bgd</item>
+        <item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:scaleType">fitXY</item>
+    </style>
+    <style name="mainTxtViewTitle">
+        <item name="android:text">@string/app_title</item>
+        <item name="android:layout_marginLeft">40dp</item>
+        <item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_centerVertical">true</item>
+		<item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+    </style>
+    
+    <!-- @@@@@@@@@@@@@@@@@@@@@ activity_main_menu.xml Styles @@@@@@@@@@@@@@@@@@@@@@ -->
+    <style name="mainMenuImgViewBgd">
+        <item name="android:background">#E8D71C</item>
+        <item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="mainMenuListView">
+        <item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="mainMenuNavDrawer">
+        <item name="android:layout_width">240dp</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_gravity">left</item>
+		<item name="android:background">#FFFFFF</item>
+		<item name="android:choiceMode">singleChoice</item>
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">0dp</item> 
+    </style>
+    
+    <!-- @@@@@@@@@@@@@@@@@@@@@ activity_find_beer.xml Styles @@@@@@@@@@@@@@@@@@@@@@ -->
+    <style name="findBeerImgViewBgd">
+        <item name="android:background">#E8D71C</item>
+        <item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+    </style>
+ 	<style name="findBeerNavDrawer">
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:layout_width">240dp</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_gravity">left</item>
+		<item name="android:choiceMode">singleChoice</item>
+		<item name="android:divider">@android:color/transparent</item>    
+		<item name="android:dividerHeight">0dp</item>    
+    </style>
+    
+ 	<!-- @@@@@@@@@@@@@@@@@@@@@ main_menu_list_view.xml Styles @@@@@@@@@@@@@@@@@@@@@@ -->
+ 	<style name="mainMenuListItemImgViewBgd">
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">75dp</item>
+		<item name="android:src">@drawable/item_list</item>
+    </style>
+    <style name="mainMenuListItemTxtViewOpt">
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginTop">25dp</item>
+        <item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+    </style>
 </resources>

@@ -1,0 +1,21 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/findBeerDrawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+	<RelativeLayout
+	    android:id="@+id/findBeerRelLayContent"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent" >
+
+	    <ImageView
+	        android:id="@+id/findBeerImgViewBgd"
+	        style="@style/findBeerImgViewBgd"/>
+	
+	</RelativeLayout>
+	
+	<ListView
+	    android:id="@+id/findBeerNavDrawer"
+	    style="@style/findBeerNavDrawer"/>
+
+</android.support.v4.widget.DrawerLayout>

@@ -10,3 +10,24 @@ Screens Density:
 - xhdpi: 1dp = 2px
 
 - xxhdpi: 1dp = 3px
+
+
+px = dp * (dpi/160)
+
+Screens Sizes:
+--------------
+
+- xlarge: 960dp x 720dp -> proporção = 1,333...
+- large: 640dp x 480dp -> proporção = 1,333...
+- normal: 470dp x 320dp -> proporção = 1,46875
+- small: 426dp x 320dp -> proporção = 1,33125
+
+Obs: As imagens fullscreen do APP, devem ser geradas com base na resolução 470dp x 320dp(Normal).
+
+Então(Teste):
+
+- xxhdpi: 1410px x 960px
+- xhdpi: 940px x 640px
+- hdpi: 705px x 480px
+- mdpi: 470px x 320px
+- ldpi: 353px x 240px 

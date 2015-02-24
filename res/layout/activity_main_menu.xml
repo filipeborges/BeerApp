@@ -1,0 +1,26 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainMenuDrawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/mainMenuRelLayContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    
+        <ImageView
+            android:id="@+id/mainMenuImgViewBgd"
+            style="@style/mainMenuImgViewBgd" />
+
+        <ListView
+            android:id="@+id/mainMenuListView"
+            style="@style/mainMenuListView" >
+        </ListView>
+        
+    </RelativeLayout>
+    
+    <ListView
+        android:id="@+id/mainMenuNavDrawer"
+        style="@style/mainMenuNavDrawer"/>
+    
+</android.support.v4.widget.DrawerLayout>
