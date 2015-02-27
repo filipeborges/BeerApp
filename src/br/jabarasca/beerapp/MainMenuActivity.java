@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 public class MainMenuActivity extends ActionBarActivity {
 
@@ -19,6 +20,7 @@ public class MainMenuActivity extends ActionBarActivity {
 	final int LIST_VIEW_OPTIONS_1_POSITION = 0;
 	
 	private ActionBarDrawerToggle actionBarDrawerToggle;
+	private boolean quitApp;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,23 @@ public class MainMenuActivity extends ActionBarActivity {
 		this.setNavigationDrawer((DrawerLayout)findViewById(R.id.mainMenuDrawerLayout), R.drawable.beer_action_bar_icon, 
 				R.string.openDrawerContentDesc, R.string.closeDrawerContentDesc);
 		
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		quitApp = false;
+	}
+	
+	@Override
+	public void onBackPressed() {
+		if(quitApp) {
+			finish();
+		}
+		else {
+			Toast.makeText(this, R.string.toastBackToFinishApp, Toast.LENGTH_SHORT).show();
+			quitApp = true;
+		}
 	}
 	
 	@Override

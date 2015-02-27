@@ -7,5 +7,6 @@
     <string name="app_title">BeerApp</string>
     <string name="openDrawerContentDesc">Open Drawer</string>
     <string name="closeDrawerContentDesc">Close Drawer</string>
+    <string name="toastBackToFinishApp">Pressione novamente para sair</string>
 
 </resources>

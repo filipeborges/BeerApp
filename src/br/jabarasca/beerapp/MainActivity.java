@@ -35,6 +35,7 @@ public class MainActivity extends Activity {
 			public void onAnimationEnd(Animation animation) {
 				Intent intent = new Intent(appContext, MainMenuActivity.class); //HardCoded Activity.
 				activity.startActivity(intent);
+				finish();
 			}
 		};
 		anim.setAnimationListener(animListener);
