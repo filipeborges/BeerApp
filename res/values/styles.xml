@@ -48,11 +48,11 @@
         <item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
     </style>
-    <style name="mainMenuNavDrawer">
+    <style name="mainMenuNavDrawerListView">
         <item name="android:layout_width">240dp</item>
 		<item name="android:layout_height">match_parent</item>
 		<item name="android:layout_gravity">left</item>
-		<item name="android:background">#FFFFFF</item>
+		<item name="android:background">#222222</item>
 		<item name="android:choiceMode">singleChoice</item>
         <item name="android:divider">@android:color/transparent</item>
         <item name="android:dividerHeight">0dp</item> 
@@ -64,17 +64,17 @@
         <item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">match_parent</item>
     </style>
- 	<style name="findBeerNavDrawer">
-        <item name="android:background">#FFFFFF</item>
+ 	<style name="findBeerNavDrawerListView">
+        <item name="android:background">#222222</item>
         <item name="android:layout_width">240dp</item>
 		<item name="android:layout_height">match_parent</item>
 		<item name="android:layout_gravity">left</item>
 		<item name="android:choiceMode">singleChoice</item>
 		<item name="android:divider">@android:color/transparent</item>    
-		<item name="android:dividerHeight">0dp</item>    
+		<item name="android:dividerHeight">0dp</item>   
     </style>
     
- 	<!-- @@@@@@@@@@@@@@@@@@@@@ main_menu_list_view.xml Styles @@@@@@@@@@@@@@@@@@@@@@ -->
+ 	<!-- @@@@@@@@@@@@@@@@@@@@@ main_menu_list_view_item.xml Styles @@@@@@@@@@@@@@@@@@@@@@ -->
  	<style name="mainMenuListItemImgViewBgd">
         <item name="android:scaleType">fitXY</item>
         <item name="android:layout_width">match_parent</item>
@@ -87,5 +87,19 @@
         <item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+    </style>
+    
+    <!-- @@@@@@@@@@@@@@@@@@@@@ nav_list_view_item.xml Styles @@@@@@@@@@@@@@@@@@@@@@ -->
+    <style name="navListViewItemImgViewBgd">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">#FFFFFF</item>
+    </style>
+    <style name="navListViewItemTxtViewOpt">
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginTop">13dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
     </style>
 </resources>

@@ -19,6 +19,8 @@ public class MainMenuActivity extends ActionBarActivity {
 	final String LIST_VIEW_OPTIONS_1 = "Encontrar Cerveja";
 	final int LIST_VIEW_OPTIONS_1_POSITION = 0;
 	
+	final String NAV_LIST_VIEW_OPTIONS_1 = "Minhas Cervejas";
+	
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 	private boolean quitApp;
 	
@@ -27,13 +29,17 @@ public class MainMenuActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_menu);
 
-		ListView listView = (ListView)findViewById(R.id.mainMenuListView);
-		this.setListViewArrayAdapter(listView, R.layout.main_menu_list_view_item, R.id.mainMenuListItemTxtViewOpt);
-		this.setMainMenuListViewItemsListener(listView);
+		ListView mainMenuListView = (ListView)findViewById(R.id.mainMenuListView);
+		String[] mainMenuListViewOpts = new String[]{LIST_VIEW_OPTIONS_1};
+		this.setListViewArrayAdapter(mainMenuListView, R.layout.main_menu_list_view_item, R.id.mainMenuListItemTxtViewOpt, mainMenuListViewOpts);
+		this.setMainMenuListViewItemsListener(mainMenuListView);
+		
+		ListView navListView = (ListView)findViewById(R.id.mainMenuNavDrawerListView);
+		String[] nav_list_items_opts = new String[]{NAV_LIST_VIEW_OPTIONS_1};
+		this.setListViewArrayAdapter(navListView, R.layout.nav_list_view_item, R.id.navListViewItemTxtViewOpt, nav_list_items_opts);
 		
 		this.setNavigationDrawer((DrawerLayout)findViewById(R.id.mainMenuDrawerLayout), R.drawable.beer_action_bar_icon, 
 				R.string.openDrawerContentDesc, R.string.closeDrawerContentDesc);
-		
 	}
 	
 	@Override
@@ -75,9 +81,11 @@ public class MainMenuActivity extends ActionBarActivity {
 		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_USE_LOGO|ActionBar.DISPLAY_HOME_AS_UP|ActionBar.DISPLAY_SHOW_HOME|ActionBar.DISPLAY_SHOW_TITLE);
 	}
 	
-	private void setListViewArrayAdapter(ListView listView, int listItemLayoutRes, int txtViewLayoutChildRes) {
+	private void setListViewArrayAdapter(ListView listView, int listItemLayoutRes, int txtViewLayoutChildRes, String[] list_items_opts) {
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, listItemLayoutRes, txtViewLayoutChildRes);
-		arrayAdapter.add(LIST_VIEW_OPTIONS_1);
+		for(int i = 0; i < list_items_opts.length; i++) {
+			arrayAdapter.add(list_items_opts[i]);
+		}
 		listView.setAdapter(arrayAdapter);
 	}
 	

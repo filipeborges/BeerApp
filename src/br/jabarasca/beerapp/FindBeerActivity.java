@@ -11,6 +11,8 @@ import android.widget.ListView;
 
 public class FindBeerActivity extends ActionBarActivity {
 
+	final String NAV_LIST_VIEW_OPTIONS_1 = "Minhas Cervejas";
+	
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 	
 	@Override
@@ -20,6 +22,10 @@ public class FindBeerActivity extends ActionBarActivity {
 		
 		this.setNavigationDrawer((DrawerLayout)findViewById(R.id.findBeerDrawerLayout), R.drawable.beer_action_bar_icon,
 				R.string.openDrawerContentDesc, R.string.closeDrawerContentDesc);
+		
+		ListView navListView = (ListView)findViewById(R.id.findBeerNavDrawerListView);
+		String[] nav_list_items_opts = new String[]{NAV_LIST_VIEW_OPTIONS_1};
+		this.setListViewArrayAdapter(navListView, R.layout.nav_list_view_item, R.id.navListViewItemTxtViewOpt, nav_list_items_opts);
 	}
 	
 	@Override
@@ -42,6 +48,14 @@ public class FindBeerActivity extends ActionBarActivity {
 		drawer.setDrawerListener(actionBarDrawerToggle);
 		getSupportActionBar().setIcon(iconRes);
 		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_USE_LOGO|ActionBar.DISPLAY_HOME_AS_UP|ActionBar.DISPLAY_SHOW_HOME|ActionBar.DISPLAY_SHOW_TITLE);
+	}
+	
+	private void setListViewArrayAdapter(ListView listView, int listItemLayoutRes, int txtViewLayoutChildRes, String[] list_items_opts) {
+		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, listItemLayoutRes, txtViewLayoutChildRes);
+		for(int i = 0; i < list_items_opts.length; i++) {
+			arrayAdapter.add(list_items_opts[i]);
+		}
+		listView.setAdapter(arrayAdapter);
 	}
 	
 	/*@Override

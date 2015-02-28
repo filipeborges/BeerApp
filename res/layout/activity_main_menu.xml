@@ -20,7 +20,7 @@
     </RelativeLayout>
     
     <ListView
-        android:id="@+id/mainMenuNavDrawer"
-        style="@style/mainMenuNavDrawer"/>
+        android:id="@+id/mainMenuNavDrawerListView"
+        style="@style/mainMenuNavDrawerListView" />
     
 </android.support.v4.widget.DrawerLayout>
