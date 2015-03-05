@@ -11,12 +11,14 @@ import java.net.URL;
 import android.os.AsyncTask;
 
 public class HtmlDownloaderTask extends AsyncTask<String, Void, String> {
-	final int READ_TIMEOUT_MILLIS = 10000, CONN_TIMEOUT_MILLIS = 15000;
+	private final String NULL_POINTER_EXCEPTION_MSG = "DownloaderPostAction cannot be NULL."; 
+	private final int READ_TIMEOUT_MILLIS = 10000, CONN_TIMEOUT_MILLIS = 15000;
+	
 	private DownloaderPostAction postAction;
 	
-	public HtmlDownloaderTask(DownloaderPostAction postAction) {
+	public HtmlDownloaderTask(DownloaderPostAction postAction) { 
 		if(postAction == null) {
-			throw new NullPointerException("DownloaderPostAction cannot be NULL.");
+			throw new NullPointerException(NULL_POINTER_EXCEPTION_MSG);
 		}
 		else {
 			this.postAction = postAction;

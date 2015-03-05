@@ -1,5 +1,8 @@
 package br.jabarasca.beerapp;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -11,16 +14,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import br.jabarasca.beerapp.utils.HtmlDownloaderTask;
 import br.jabarasca.beerapp.utils.DownloaderPostAction;
 
 public class FindBeerActivity extends ActionBarActivity implements DownloaderPostAction {
-
-	final String NAV_LIST_VIEW_OPTIONS_1 = "Minhas Cervejas";
-	final String NETWORK_CONNECTION_ERROR = "Conexão à internet não disponível";
-	final String WEB_URL = "http://cervafinder.net16.net/select.php";
+	private final String NAV_LIST_VIEW_OPTIONS_1 = "Minhas Cervejas";
+	private final String BEER_NAME_HTML_TAG = "Name:", HTML_ATTR_DELIMITER = "|";
+	private final String WEB_URL = "http://cervafinder.net16.net/select.php";
+	private final String NETWORK_CONNECTION_ERROR = "Conexão à internet não disponível";
 	
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 	
@@ -29,22 +31,38 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find_beer);
 		
-		this.setNavigationDrawer((DrawerLayout)findViewById(R.id.findBeerDrawerLayout), R.drawable.beer_action_bar_icon,
+		setNavigationDrawer((DrawerLayout)findViewById(R.id.findBeerDrawerLayout), R.drawable.beer_action_bar_icon,
 				R.string.openDrawerContentDesc, R.string.closeDrawerContentDesc);
 		
 		ListView navListView = (ListView)findViewById(R.id.findBeerNavDrawerListView);
-		String[] nav_list_items_opts = new String[]{NAV_LIST_VIEW_OPTIONS_1};
-		this.setListViewArrayAdapter(navListView, R.layout.nav_list_view_item, R.id.navListViewItemTxtViewOpt, nav_list_items_opts);
+		List<String> nav_list_items_opts = new ArrayList<String>();
+		nav_list_items_opts.add(NAV_LIST_VIEW_OPTIONS_1);
+		setListViewArrayAdapter(navListView, R.layout.nav_list_view_item, R.id.navListViewItemTxtViewOpt, nav_list_items_opts);
 		
-		if(this.networkConnectionAvailable()) {
-			this.networkConnectionTest();
+		if(networkConnectionAvailable()) {
+			networkConnectionTest();
 		}
 	}
 	
 	@Override
 	public void htmlDownloaderPostAction(String htmlContent) {
-		TextView txtView = (TextView)findViewById(R.id.htmlTextView);
-		txtView.setText(htmlContent);
+		List<String> beerNames = new ArrayList<String>();
+		
+		for(int i = 0; i < htmlContent.length(); i++) {
+			i = htmlContent.indexOf(BEER_NAME_HTML_TAG, i);
+			if(i == -1) {
+				break;
+			}
+			else {
+				i += BEER_NAME_HTML_TAG.length();
+				int a = htmlContent.indexOf(HTML_ATTR_DELIMITER, i);
+				beerNames.add(htmlContent.substring(i, a));
+			}
+		}
+		
+		ListView listView = (ListView)findViewById(R.id.findBeerSearchListView);
+		setListViewArrayAdapter(listView, R.layout.list_view_item, R.id.listItemTxtViewOpt, 
+				beerNames);
 	}
 	
 	@Override
@@ -86,10 +104,11 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_USE_LOGO|ActionBar.DISPLAY_HOME_AS_UP|ActionBar.DISPLAY_SHOW_HOME|ActionBar.DISPLAY_SHOW_TITLE);
 	}
 	
-	private void setListViewArrayAdapter(ListView listView, int listItemLayoutRes, int txtViewLayoutChildRes, String[] list_items_opts) {
+	private void setListViewArrayAdapter(ListView listView, int listItemLayoutRes, int txtViewLayoutChildRes, List<String> list_items_opts) {
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, listItemLayoutRes, txtViewLayoutChildRes);
-		for(int i = 0; i < list_items_opts.length; i++) {
-			arrayAdapter.add(list_items_opts[i]);
+		Iterator<String> list_ite = list_items_opts.iterator();
+		while(list_ite.hasNext()) {
+			arrayAdapter.add(list_ite.next());
 		}
 		listView.setAdapter(arrayAdapter);
 	}

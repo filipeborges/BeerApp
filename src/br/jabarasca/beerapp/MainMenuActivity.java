@@ -15,11 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 public class MainMenuActivity extends ActionBarActivity {
-
-	final String LIST_VIEW_OPTIONS_1 = "Encontrar Cerveja";
-	final int LIST_VIEW_OPTIONS_1_POSITION = 0;
+	private final String LIST_VIEW_OPTIONS_1 = "Encontrar Cerveja";
+	private final int LIST_VIEW_OPTIONS_1_POSITION = 0;
 	
-	final String NAV_LIST_VIEW_OPTIONS_1 = "Minhas Cervejas";
+	private final String NAV_LIST_VIEW_OPTIONS_1 = "Minhas Cervejas";
 	
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 	private boolean quitApp;
@@ -31,7 +30,7 @@ public class MainMenuActivity extends ActionBarActivity {
 
 		ListView mainMenuListView = (ListView)findViewById(R.id.mainMenuListView);
 		String[] mainMenuListViewOpts = new String[]{LIST_VIEW_OPTIONS_1};
-		this.setListViewArrayAdapter(mainMenuListView, R.layout.main_menu_list_view_item, R.id.mainMenuListItemTxtViewOpt, mainMenuListViewOpts);
+		this.setListViewArrayAdapter(mainMenuListView, R.layout.list_view_item, R.id.listItemTxtViewOpt, mainMenuListViewOpts);
 		this.setMainMenuListViewItemsListener(mainMenuListView);
 		
 		ListView navListView = (ListView)findViewById(R.id.mainMenuNavDrawerListView);

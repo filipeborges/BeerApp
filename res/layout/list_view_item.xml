@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listItemRelLay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        android:id="@+id/listItemImgViewBgd"
+        style="@style/listItemImgViewBgd" />
+
+    <TextView
+        android:id="@+id/listItemTxtViewOpt"
+        style="@style/listItemTxtViewOpt" />
+
+</RelativeLayout>
