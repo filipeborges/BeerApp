@@ -3,6 +3,7 @@ package br.jabarasca.beerapp;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -11,7 +12,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -40,6 +43,7 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 		setListViewArrayAdapter(navListView, R.layout.nav_list_view_item, R.id.navListViewItemTxtViewOpt, nav_list_items_opts);
 		
 		if(networkConnectionAvailable()) {
+			loadProgressBar(R.layout.progress_bar, (ViewGroup)findViewById(R.id.findBeerRelLayContent), this);
 			networkConnectionTest();
 		}
 	}
@@ -63,6 +67,8 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 		ListView listView = (ListView)findViewById(R.id.findBeerSearchListView);
 		setListViewArrayAdapter(listView, R.layout.list_view_item, R.id.listItemTxtViewOpt, 
 				beerNames);
+		
+		removeProgressBar((ViewGroup)findViewById(R.id.progressBarRelLay), (ViewGroup)findViewById(R.id.findBeerRelLayContent));
 	}
 	
 	@Override
@@ -83,6 +89,15 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 	private void networkConnectionTest() {
 		HtmlDownloaderTask downloadTask = new HtmlDownloaderTask(this);
 		downloadTask.execute(WEB_URL);
+	}
+	
+	private void loadProgressBar(int progressBarLayout, ViewGroup parentLayout, Context context) {
+		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater.inflate(progressBarLayout, parentLayout);
+	}
+	
+	private void removeProgressBar(ViewGroup progressBarRelLay, ViewGroup parentLayout) {
+		parentLayout.removeView(progressBarRelLay);
 	}
 	
 	private boolean networkConnectionAvailable() {
