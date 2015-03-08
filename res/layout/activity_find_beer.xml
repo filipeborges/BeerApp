@@ -7,10 +7,10 @@
 	    android:id="@+id/findBeerRelLayContent"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent" >
-
-	<ListView 
+	   
+	 <ListView 
 	    android:id="@+id/findBeerSearchListView"
-	    style="@style/findBeerSearchListView"/>
+	    style="@style/findBeerSearchListView"/> 
 	    
 	</RelativeLayout>
 	

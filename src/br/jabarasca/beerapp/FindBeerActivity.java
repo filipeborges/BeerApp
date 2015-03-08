@@ -1,10 +1,12 @@
 package br.jabarasca.beerapp;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -25,7 +27,8 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 	private final String NAV_LIST_VIEW_OPTIONS_1 = "Minhas Cervejas";
 	private final String BEER_NAME_HTML_TAG = "Name:", HTML_ATTR_DELIMITER = "|";
 	private final String WEB_URL = "http://cervafinder.net16.net/select.php";
-	private final String NETWORK_CONNECTION_ERROR = "Conexão à internet não disponível";
+	private final String NO_NETWORK_CONNECTION = "Conexão à internet não disponível";
+	private final String NETWORK_CONNECTION_ERROR = "Erro na conexão com o servidor.";
 	
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 	
@@ -43,32 +46,41 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 		setListViewArrayAdapter(navListView, R.layout.nav_list_view_item, R.id.navListViewItemTxtViewOpt, nav_list_items_opts);
 		
 		if(networkConnectionAvailable()) {
-			loadProgressBar(R.layout.progress_bar, (ViewGroup)findViewById(R.id.findBeerRelLayContent), this);
-			networkConnectionTest();
+			loadProgressBar(R.layout.progress_bar, R.id.findBeerRelLayContent, this);
+			getListOfBeersFromWeb(WEB_URL);
 		}
 	}
 	
 	@Override
+	public void imageDownloaderPostAction(Bitmap bitmap) {}
+
+	/*This implementation sets the Beers getted from a Web on a ListView.*/
+	@Override
 	public void htmlDownloaderPostAction(String htmlContent) {
-		List<String> beerNames = new ArrayList<String>();
-		
-		for(int i = 0; i < htmlContent.length(); i++) {
-			i = htmlContent.indexOf(BEER_NAME_HTML_TAG, i);
-			if(i == -1) {
-				break;
+		if(htmlContent != null) {
+			List<String> beerNames = new ArrayList<String>();
+			
+			for(int i = 0; i < htmlContent.length(); i++) {
+				i = htmlContent.indexOf(BEER_NAME_HTML_TAG, i);
+				if(i == -1) {
+					break;
+				}
+				else {
+					i += BEER_NAME_HTML_TAG.length();
+					int a = htmlContent.indexOf(HTML_ATTR_DELIMITER, i);
+					beerNames.add(htmlContent.substring(i, a));
+				}
 			}
-			else {
-				i += BEER_NAME_HTML_TAG.length();
-				int a = htmlContent.indexOf(HTML_ATTR_DELIMITER, i);
-				beerNames.add(htmlContent.substring(i, a));
-			}
+			
+			Collections.sort(beerNames);
+			ListView listView = (ListView)findViewById(R.id.findBeerSearchListView);
+			setListViewArrayAdapter(listView, R.layout.list_view_item, R.id.listItemTxtViewOpt, 
+					beerNames);
 		}
-		
-		ListView listView = (ListView)findViewById(R.id.findBeerSearchListView);
-		setListViewArrayAdapter(listView, R.layout.list_view_item, R.id.listItemTxtViewOpt, 
-				beerNames);
-		
-		removeProgressBar((ViewGroup)findViewById(R.id.progressBarRelLay), (ViewGroup)findViewById(R.id.findBeerRelLayContent));
+		else {
+			Toast.makeText(this, NETWORK_CONNECTION_ERROR, Toast.LENGTH_SHORT).show();
+		}
+		removeProgressBar(R.id.progressBarRelLay, R.id.findBeerRelLayContent);
 	}
 	
 	@Override
@@ -86,17 +98,20 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
         actionBarDrawerToggle.syncState();
     }
 
-	private void networkConnectionTest() {
+	private void getListOfBeersFromWeb(String url) {
 		HtmlDownloaderTask downloadTask = new HtmlDownloaderTask(this);
-		downloadTask.execute(WEB_URL);
+		downloadTask.execute(url);
 	}
 	
-	private void loadProgressBar(int progressBarLayout, ViewGroup parentLayout, Context context) {
+	private void loadProgressBar(int progressBarLayout, int parentLayoutId, Context context) {
 		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		ViewGroup parentLayout = (ViewGroup)findViewById(parentLayoutId);
 		inflater.inflate(progressBarLayout, parentLayout);
 	}
 	
-	private void removeProgressBar(ViewGroup progressBarRelLay, ViewGroup parentLayout) {
+	private void removeProgressBar(int progressBarRelLayId, int parentLayoutId) {
+		ViewGroup progressBarRelLay = (ViewGroup)findViewById(progressBarRelLayId);
+		ViewGroup parentLayout = (ViewGroup)findViewById(parentLayoutId);
 		parentLayout.removeView(progressBarRelLay);
 	}
 	
@@ -104,7 +119,7 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 		ConnectivityManager connManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = connManager.getActiveNetworkInfo();
 		if(!(netInfo != null && netInfo.isConnected())) {
-			Toast.makeText(getApplicationContext(), NETWORK_CONNECTION_ERROR, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), NO_NETWORK_CONNECTION, Toast.LENGTH_SHORT).show();
 			return false;
 		}
 		else {

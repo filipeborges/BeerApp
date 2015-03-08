@@ -9,7 +9,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -93,7 +95,7 @@ public class MainMenuActivity extends ActionBarActivity {
 		final Context appContext = this.getApplicationContext();
 		AdapterView.OnItemClickListener listViewItemAction = new AdapterView.OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> listView, View listItem, int itemPosition, long itemRowId) {
+			public void onItemClick(AdapterView<?> listView, View listItemViewGroupLayout, int itemPosition, long itemRowId) {
 				switch(itemPosition) {
 					case LIST_VIEW_OPTIONS_1_POSITION:
 						Intent intent = new Intent(appContext, FindBeerActivity.class); //HardCoded Activity.
@@ -104,7 +106,7 @@ public class MainMenuActivity extends ActionBarActivity {
 		};
 		listView.setOnItemClickListener(listViewItemAction);
 	}//End setListViewItemsListener.
-		
+	
 	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
