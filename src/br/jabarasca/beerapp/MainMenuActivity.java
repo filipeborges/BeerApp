@@ -19,8 +19,9 @@ import android.widget.Toast;
 public class MainMenuActivity extends ActionBarActivity {
 	private final String LIST_VIEW_OPTIONS_1 = "Encontrar Cerveja";
 	private final int LIST_VIEW_OPTIONS_1_POSITION = 0;
-	
 	private final String NAV_LIST_VIEW_OPTIONS_1 = "Minhas Cervejas";
+	private final int ACTION_BAR_DISPLAY_OPTS = ActionBar.DISPLAY_USE_LOGO|ActionBar.DISPLAY_HOME_AS_UP|
+												ActionBar.DISPLAY_SHOW_HOME|ActionBar.DISPLAY_SHOW_TITLE;
 	
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 	private boolean quitApp;
@@ -79,7 +80,7 @@ public class MainMenuActivity extends ActionBarActivity {
 		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, openDrawerStringRes, openDrawerStringRes);
 		drawer.setDrawerListener(actionBarDrawerToggle);
 		getSupportActionBar().setIcon(actionBarIconRes);
-		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_USE_LOGO|ActionBar.DISPLAY_HOME_AS_UP|ActionBar.DISPLAY_SHOW_HOME|ActionBar.DISPLAY_SHOW_TITLE);
+		getSupportActionBar().setDisplayOptions(ACTION_BAR_DISPLAY_OPTS);
 	}
 	
 	private void setListViewArrayAdapter(ListView listView, int listItemLayoutRes, int txtViewLayoutChildRes, String[] list_items_opts) {

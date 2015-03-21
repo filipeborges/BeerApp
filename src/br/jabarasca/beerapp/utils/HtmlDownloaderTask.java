@@ -9,6 +9,9 @@ import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 
 public class HtmlDownloaderTask extends AsyncTask<String, Void, String> {
@@ -16,8 +19,10 @@ public class HtmlDownloaderTask extends AsyncTask<String, Void, String> {
 	private final int READ_TIMEOUT_MILLIS = 10000, CONN_TIMEOUT_MILLIS = 15000;
 	
 	private DownloaderPostAction postAction;
+	public boolean networkIsAvailable;
 	
-	public HtmlDownloaderTask(DownloaderPostAction postAction) { 
+	public HtmlDownloaderTask(DownloaderPostAction postAction, Context context) {
+		verifyNetworkConnection(context);
 		if(postAction == null) {
 			throw new NullPointerException(NULL_POINTER_EXCEPTION_MSG);
 		}
@@ -32,7 +37,7 @@ public class HtmlDownloaderTask extends AsyncTask<String, Void, String> {
 		try{
 			HttpURLConnection httpConn = establishHttpConnection(urls[0]);
 			inStream = httpConn.getInputStream();
-			String htmlContent = getHtmlContent(inStream, httpConn.getContentLength()); 
+			String htmlContent = getHtmlContent(inStream, httpConn.getContentLength());
 			httpConn.disconnect();
 			return htmlContent;
 			
@@ -60,6 +65,17 @@ public class HtmlDownloaderTask extends AsyncTask<String, Void, String> {
 	@Override
 	protected void onPostExecute(String htmlResultString) {
 		postAction.htmlDownloaderPostAction(htmlResultString);
+	}
+	
+	private void verifyNetworkConnection(Context context) {
+		ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = connManager.getActiveNetworkInfo();
+		if(!(netInfo != null && netInfo.isConnected())) {
+			networkIsAvailable = false;
+		}
+		else {
+			networkIsAvailable = true;
+		}
 	}
 	
 	private String getHtmlContent(InputStream inStream, int contentLength) throws IOException, NegativeArraySizeException, SocketTimeoutException {

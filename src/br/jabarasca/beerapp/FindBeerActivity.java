@@ -7,8 +7,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -29,6 +27,9 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 	private final String WEB_URL = "http://cervafinder.net16.net/select.php";
 	private final String NO_NETWORK_CONNECTION = "Conexão à internet não disponível";
 	private final String NETWORK_CONNECTION_ERROR = "Erro na conexão com o servidor.";
+	private final String ACTION_BAR_TITLE = "Encontrar Cerveja";
+	private final int ACTION_BAR_DISPLAY_OPTS = ActionBar.DISPLAY_USE_LOGO|ActionBar.DISPLAY_HOME_AS_UP|
+												ActionBar.DISPLAY_SHOW_HOME|ActionBar.DISPLAY_SHOW_TITLE;
 	
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 	
@@ -45,10 +46,7 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 		nav_list_items_opts.add(NAV_LIST_VIEW_OPTIONS_1);
 		setListViewArrayAdapter(navListView, R.layout.nav_list_view_item, R.id.navListViewItemTxtViewOpt, nav_list_items_opts);
 		
-		if(networkConnectionAvailable()) {
-			loadProgressBar(R.layout.progress_bar, R.id.findBeerRelLayContent, this);
-			getListOfBeersFromWeb(WEB_URL);
-		}
+		getListOfBeersFromWeb(WEB_URL);
 	}
 	
 	@Override
@@ -99,8 +97,14 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
     }
 
 	private void getListOfBeersFromWeb(String url) {
-		HtmlDownloaderTask downloadTask = new HtmlDownloaderTask(this);
-		downloadTask.execute(url);
+		HtmlDownloaderTask downloadTask = new HtmlDownloaderTask(this, this);
+		if(downloadTask.networkIsAvailable) {
+			loadProgressBar(R.layout.progress_bar, R.id.findBeerRelLayContent, this);
+			downloadTask.execute(url);
+		}
+		else {
+			Toast.makeText(getApplicationContext(), NO_NETWORK_CONNECTION, Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	private void loadProgressBar(int progressBarLayout, int parentLayoutId, Context context) {
@@ -115,23 +119,12 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 		parentLayout.removeView(progressBarRelLay);
 	}
 	
-	private boolean networkConnectionAvailable() {
-		ConnectivityManager connManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo netInfo = connManager.getActiveNetworkInfo();
-		if(!(netInfo != null && netInfo.isConnected())) {
-			Toast.makeText(getApplicationContext(), NO_NETWORK_CONNECTION, Toast.LENGTH_SHORT).show();
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	
 	private void setNavigationDrawer(DrawerLayout drawer, int iconRes, int openDrawerStringRes, int closeDrawerStringRes) {		
 		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, openDrawerStringRes, openDrawerStringRes);
 		drawer.setDrawerListener(actionBarDrawerToggle);
 		getSupportActionBar().setIcon(iconRes);
-		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_USE_LOGO|ActionBar.DISPLAY_HOME_AS_UP|ActionBar.DISPLAY_SHOW_HOME|ActionBar.DISPLAY_SHOW_TITLE);
+		getSupportActionBar().setTitle(ACTION_BAR_TITLE);
+		getSupportActionBar().setDisplayOptions(ACTION_BAR_DISPLAY_OPTS);
 	}
 	
 	private void setListViewArrayAdapter(ListView listView, int listItemLayoutRes, int txtViewLayoutChildRes, List<String> list_items_opts) {
