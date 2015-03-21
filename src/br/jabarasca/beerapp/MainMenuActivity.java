@@ -9,9 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -22,9 +20,11 @@ public class MainMenuActivity extends ActionBarActivity {
 	private final String NAV_LIST_VIEW_OPTIONS_1 = "Minhas Cervejas";
 	private final int ACTION_BAR_DISPLAY_OPTS = ActionBar.DISPLAY_USE_LOGO|ActionBar.DISPLAY_HOME_AS_UP|
 												ActionBar.DISPLAY_SHOW_HOME|ActionBar.DISPLAY_SHOW_TITLE;
+	private final int TIME_LIMIT_TO_QUIT_MILLIS = 2000;
 	
 	private ActionBarDrawerToggle actionBarDrawerToggle;
-	private boolean quitApp;
+	private long quitAppTime = 0;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +45,13 @@ public class MainMenuActivity extends ActionBarActivity {
 	}
 	
 	@Override
-	protected void onResume() {
-		super.onResume();
-		quitApp = false;
-	}
-	
-	@Override
 	public void onBackPressed() {
-		if(quitApp) {
+		if(System.currentTimeMillis() - quitAppTime <= TIME_LIMIT_TO_QUIT_MILLIS) {
 			finish();
 		}
 		else {
 			Toast.makeText(this, R.string.toastBackToFinishApp, Toast.LENGTH_SHORT).show();
-			quitApp = true;
+			quitAppTime = System.currentTimeMillis();
 		}
 	}
 	
