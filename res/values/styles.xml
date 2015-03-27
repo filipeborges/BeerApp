@@ -74,7 +74,7 @@
 		<item name="android:dividerHeight">0dp</item>   
     </style>
     
- 	<!-- @@@@@@@@@@@@@@@@@@@@@ list_view_item.xml && Styles @@@@@@@@@@@@@@@@@@@@@@ -->
+ 	<!-- @@@@@@@@@@@@@@@@@@@@@ list_view_item.xml Styles @@@@@@@@@@@@@@@@@@@@@@ -->
  	<style name="listItemImgViewBgd">
         <item name="android:scaleType">fitXY</item>
         <item name="android:layout_width">match_parent</item>

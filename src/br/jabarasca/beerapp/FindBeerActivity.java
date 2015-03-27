@@ -1,7 +1,6 @@
 package br.jabarasca.beerapp;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -9,15 +8,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import br.jabarasca.beerapp.utils.GuiUtils;
 import br.jabarasca.beerapp.utils.HtmlDownloaderTask;
 import br.jabarasca.beerapp.utils.DownloaderPostAction;
 
@@ -28,8 +26,6 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 	private final String NO_NETWORK_CONNECTION = "Conexão à internet não disponível";
 	private final String NETWORK_CONNECTION_ERROR = "Erro na conexão com o servidor.";
 	private final String ACTION_BAR_TITLE = "Encontrar Cerveja";
-	private final int ACTION_BAR_DISPLAY_OPTS = ActionBar.DISPLAY_USE_LOGO|ActionBar.DISPLAY_HOME_AS_UP|
-												ActionBar.DISPLAY_SHOW_HOME|ActionBar.DISPLAY_SHOW_TITLE;
 	
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 	
@@ -38,13 +34,13 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find_beer);
 		
-		setNavigationDrawer((DrawerLayout)findViewById(R.id.findBeerDrawerLayout), R.drawable.beer_action_bar_icon,
-				R.string.openDrawerContentDesc, R.string.closeDrawerContentDesc);
+		actionBarDrawerToggle = GuiUtils.setNavigationDrawer(this, (DrawerLayout)findViewById(R.id.findBeerDrawerLayout), 
+				R.drawable.beer_action_bar_icon, R.string.openDrawerContentDesc, R.string.closeDrawerContentDesc);
+		getSupportActionBar().setTitle(ACTION_BAR_TITLE);
 		
 		ListView navListView = (ListView)findViewById(R.id.findBeerNavDrawerListView);
-		List<String> nav_list_items_opts = new ArrayList<String>();
-		nav_list_items_opts.add(NAV_LIST_VIEW_OPTIONS_1);
-		setListViewArrayAdapter(navListView, R.layout.nav_list_view_item, R.id.navListViewItemTxtViewOpt, nav_list_items_opts);
+		String[] nav_list_items_opts = new String[]{NAV_LIST_VIEW_OPTIONS_1};
+		GuiUtils.setListViewArrayAdapter(this, navListView, R.layout.nav_list_view_item, R.id.navListViewItemTxtViewOpt, nav_list_items_opts);
 		
 		getListOfBeersFromWeb(WEB_URL);
 	}
@@ -72,13 +68,13 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 			
 			Collections.sort(beerNames);
 			ListView listView = (ListView)findViewById(R.id.findBeerSearchListView);
-			setListViewArrayAdapter(listView, R.layout.list_view_item, R.id.listItemTxtViewOpt, 
+			GuiUtils.setListViewArrayAdapter(this, listView, R.layout.list_view_item, R.id.listItemTxtViewOpt, 
 					beerNames);
 		}
 		else {
 			Toast.makeText(this, NETWORK_CONNECTION_ERROR, Toast.LENGTH_SHORT).show();
 		}
-		removeProgressBar(R.id.progressBarRelLay, R.id.findBeerRelLayContent);
+		removeProgressAnimation(R.id.progressBarRelLay, R.id.findBeerRelLayContent);
 	}
 	
 	@Override
@@ -99,7 +95,7 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 	private void getListOfBeersFromWeb(String url) {
 		HtmlDownloaderTask downloadTask = new HtmlDownloaderTask(this, this);
 		if(downloadTask.networkIsAvailable) {
-			loadProgressBar(R.layout.progress_bar, R.id.findBeerRelLayContent, this);
+			loadProgressAnimation(R.layout.progress_bar, R.id.findBeerRelLayContent, this);
 			downloadTask.execute(url);
 		}
 		else {
@@ -107,34 +103,19 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 		}
 	}
 	
-	private void loadProgressBar(int progressBarLayout, int parentLayoutId, Context context) {
+	private void loadProgressAnimation(int progressBarLayout, int parentLayoutId, Context context) {
 		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		ViewGroup parentLayout = (ViewGroup)findViewById(parentLayoutId);
 		inflater.inflate(progressBarLayout, parentLayout);
 	}
 	
-	private void removeProgressBar(int progressBarRelLayId, int parentLayoutId) {
+	private void removeProgressAnimation(int progressBarRelLayId, int parentLayoutId) {
 		ViewGroup progressBarRelLay = (ViewGroup)findViewById(progressBarRelLayId);
 		ViewGroup parentLayout = (ViewGroup)findViewById(parentLayoutId);
 		parentLayout.removeView(progressBarRelLay);
 	}
 	
-	private void setNavigationDrawer(DrawerLayout drawer, int iconRes, int openDrawerStringRes, int closeDrawerStringRes) {		
-		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, openDrawerStringRes, openDrawerStringRes);
-		drawer.setDrawerListener(actionBarDrawerToggle);
-		getSupportActionBar().setIcon(iconRes);
-		getSupportActionBar().setTitle(ACTION_BAR_TITLE);
-		getSupportActionBar().setDisplayOptions(ACTION_BAR_DISPLAY_OPTS);
-	}
 	
-	private void setListViewArrayAdapter(ListView listView, int listItemLayoutRes, int txtViewLayoutChildRes, List<String> list_items_opts) {
-		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, listItemLayoutRes, txtViewLayoutChildRes);
-		Iterator<String> list_ite = list_items_opts.iterator();
-		while(list_ite.hasNext()) {
-			arrayAdapter.add(list_ite.next());
-		}
-		listView.setAdapter(arrayAdapter);
-	}
 	
 	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

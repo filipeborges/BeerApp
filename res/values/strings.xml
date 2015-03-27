@@ -8,5 +8,7 @@
     <string name="openDrawerContentDesc">Open Drawer</string>
     <string name="closeDrawerContentDesc">Close Drawer</string>
     <string name="toastBackToFinishApp">Pressione novamente para sair</string>
+    <string name="mainMenuListViewOpt1">Encontrar Cerveja</string>
+    <string name="navListViewOpt1">Minhas Cervejas</string>
 
 </resources>

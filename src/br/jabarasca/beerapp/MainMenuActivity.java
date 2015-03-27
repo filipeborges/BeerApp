@@ -1,25 +1,22 @@
 package br.jabarasca.beerapp;
 
+import br.jabarasca.beerapp.utils.GuiUtils;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 public class MainMenuActivity extends ActionBarActivity {
 	private final String LIST_VIEW_OPTIONS_1 = "Encontrar Cerveja";
 	private final int LIST_VIEW_OPTIONS_1_POSITION = 0;
 	private final String NAV_LIST_VIEW_OPTIONS_1 = "Minhas Cervejas";
-	private final int ACTION_BAR_DISPLAY_OPTS = ActionBar.DISPLAY_USE_LOGO|ActionBar.DISPLAY_HOME_AS_UP|
-												ActionBar.DISPLAY_SHOW_HOME|ActionBar.DISPLAY_SHOW_TITLE;
 	private final int TIME_LIMIT_TO_QUIT_MILLIS = 2000;
 	
 	private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -33,15 +30,16 @@ public class MainMenuActivity extends ActionBarActivity {
 
 		ListView mainMenuListView = (ListView)findViewById(R.id.mainMenuListView);
 		String[] mainMenuListViewOpts = new String[]{LIST_VIEW_OPTIONS_1};
-		this.setListViewArrayAdapter(mainMenuListView, R.layout.list_view_item, R.id.listItemTxtViewOpt, mainMenuListViewOpts);
-		this.setMainMenuListViewItemsListener(mainMenuListView);
+		GuiUtils.setListViewArrayAdapter(this, mainMenuListView, R.layout.list_view_item, R.id.listItemTxtViewOpt, mainMenuListViewOpts);
+		
+		setMainMenuListViewItemsListener(mainMenuListView);
 		
 		ListView navListView = (ListView)findViewById(R.id.mainMenuNavDrawerListView);
 		String[] nav_list_items_opts = new String[]{NAV_LIST_VIEW_OPTIONS_1};
-		this.setListViewArrayAdapter(navListView, R.layout.nav_list_view_item, R.id.navListViewItemTxtViewOpt, nav_list_items_opts);
+		GuiUtils.setListViewArrayAdapter(this, navListView, R.layout.nav_list_view_item, R.id.navListViewItemTxtViewOpt, nav_list_items_opts);
 		
-		this.setNavigationDrawer((DrawerLayout)findViewById(R.id.mainMenuDrawerLayout), R.drawable.beer_action_bar_icon, 
-				R.string.openDrawerContentDesc, R.string.closeDrawerContentDesc);
+		actionBarDrawerToggle = GuiUtils.setNavigationDrawer(this, (DrawerLayout)findViewById(R.id.mainMenuDrawerLayout), 
+												R.drawable.beer_action_bar_icon, R.string.openDrawerContentDesc, R.string.closeDrawerContentDesc);
 	}
 	
 	@Override
@@ -69,21 +67,6 @@ public class MainMenuActivity extends ActionBarActivity {
         // Sync the toggle state after onRestoreInstanceState has occurred.
         actionBarDrawerToggle.syncState();
     }
-
-	private void setNavigationDrawer(DrawerLayout drawer, int actionBarIconRes, int openDrawerStringRes, int closeDrawerStringRes) {		
-		actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, openDrawerStringRes, openDrawerStringRes);
-		drawer.setDrawerListener(actionBarDrawerToggle);
-		getSupportActionBar().setIcon(actionBarIconRes);
-		getSupportActionBar().setDisplayOptions(ACTION_BAR_DISPLAY_OPTS);
-	}
-	
-	private void setListViewArrayAdapter(ListView listView, int listItemLayoutRes, int txtViewLayoutChildRes, String[] list_items_opts) {
-		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, listItemLayoutRes, txtViewLayoutChildRes);
-		for(int i = 0; i < list_items_opts.length; i++) {
-			arrayAdapter.add(list_items_opts[i]);
-		}
-		listView.setAdapter(arrayAdapter);
-	}
 	
 	private void setMainMenuListViewItemsListener(ListView listView) {
 		final ActionBarActivity actionBarActivity = this;
