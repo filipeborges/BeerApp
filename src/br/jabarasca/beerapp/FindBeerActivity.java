@@ -20,12 +20,8 @@ import br.jabarasca.beerapp.utils.HtmlDownloaderTask;
 import br.jabarasca.beerapp.utils.DownloaderPostAction;
 
 public class FindBeerActivity extends ActionBarActivity implements DownloaderPostAction {
-	private final String NAV_LIST_VIEW_OPTIONS_1 = "Minhas Cervejas";
 	private final String BEER_NAME_HTML_TAG = "Name:", HTML_ATTR_DELIMITER = "|";
 	private final String WEB_URL = "http://cervafinder.net16.net/select.php";
-	private final String NO_NETWORK_CONNECTION = "Conexão à internet não disponível";
-	private final String NETWORK_CONNECTION_ERROR = "Erro na conexão com o servidor.";
-	private final String ACTION_BAR_TITLE = "Encontrar Cerveja";
 	
 	private ActionBarDrawerToggle actionBarDrawerToggle;
 	
@@ -36,10 +32,10 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 		
 		actionBarDrawerToggle = GuiUtils.setNavigationDrawer(this, (DrawerLayout)findViewById(R.id.findBeerDrawerLayout), 
 				R.drawable.beer_action_bar_icon, R.string.openDrawerContentDesc, R.string.closeDrawerContentDesc);
-		getSupportActionBar().setTitle(ACTION_BAR_TITLE);
+		getSupportActionBar().setTitle(getResources().getString(R.string.mainMenuListViewOpt1));
 		
 		ListView navListView = (ListView)findViewById(R.id.findBeerNavDrawerListView);
-		String[] nav_list_items_opts = new String[]{NAV_LIST_VIEW_OPTIONS_1};
+		String[] nav_list_items_opts = new String[]{getResources().getString(R.string.navListViewOpt1)};
 		GuiUtils.setListViewArrayAdapter(this, navListView, R.layout.nav_list_view_item, R.id.navListViewItemTxtViewOpt, nav_list_items_opts);
 		
 		getListOfBeersFromWeb(WEB_URL);
@@ -72,7 +68,7 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 					beerNames);
 		}
 		else {
-			Toast.makeText(this, NETWORK_CONNECTION_ERROR, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, getResources().getString(R.string.networkConnectionError), Toast.LENGTH_SHORT).show();
 		}
 		removeProgressAnimation(R.id.progressBarRelLay, R.id.findBeerRelLayContent);
 	}
@@ -99,7 +95,7 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 			downloadTask.execute(url);
 		}
 		else {
-			Toast.makeText(getApplicationContext(), NO_NETWORK_CONNECTION, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), getResources().getString(R.string.noNetworkConnection), Toast.LENGTH_SHORT).show();
 		}
 	}
 	

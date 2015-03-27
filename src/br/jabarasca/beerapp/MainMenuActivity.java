@@ -14,9 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainMenuActivity extends ActionBarActivity {
-	private final String LIST_VIEW_OPTIONS_1 = "Encontrar Cerveja";
 	private final int LIST_VIEW_OPTIONS_1_POSITION = 0;
-	private final String NAV_LIST_VIEW_OPTIONS_1 = "Minhas Cervejas";
 	private final int TIME_LIMIT_TO_QUIT_MILLIS = 2000;
 	
 	private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -27,15 +25,15 @@ public class MainMenuActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_menu);
-
+		
 		ListView mainMenuListView = (ListView)findViewById(R.id.mainMenuListView);
-		String[] mainMenuListViewOpts = new String[]{LIST_VIEW_OPTIONS_1};
+		String[] mainMenuListViewOpts = new String[]{getResources().getString(R.string.mainMenuListViewOpt1)};
 		GuiUtils.setListViewArrayAdapter(this, mainMenuListView, R.layout.list_view_item, R.id.listItemTxtViewOpt, mainMenuListViewOpts);
 		
 		setMainMenuListViewItemsListener(mainMenuListView);
 		
 		ListView navListView = (ListView)findViewById(R.id.mainMenuNavDrawerListView);
-		String[] nav_list_items_opts = new String[]{NAV_LIST_VIEW_OPTIONS_1};
+		String[] nav_list_items_opts = new String[]{getResources().getString(R.string.navListViewOpt1)};
 		GuiUtils.setListViewArrayAdapter(this, navListView, R.layout.nav_list_view_item, R.id.navListViewItemTxtViewOpt, nav_list_items_opts);
 		
 		actionBarDrawerToggle = GuiUtils.setNavigationDrawer(this, (DrawerLayout)findViewById(R.id.mainMenuDrawerLayout), 

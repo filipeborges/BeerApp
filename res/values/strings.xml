@@ -2,13 +2,13 @@
 <resources>
 
     <string name="app_name">BeerApp</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string name="app_title">BeerApp</string>
     <string name="openDrawerContentDesc">Open Drawer</string>
     <string name="closeDrawerContentDesc">Close Drawer</string>
     <string name="toastBackToFinishApp">Pressione novamente para sair</string>
-    <string name="mainMenuListViewOpt1">Encontrar Cerveja</string>
     <string name="navListViewOpt1">Minhas Cervejas</string>
-
+    <string name="noNetworkConnection">Conexão à internet não disponível</string>
+    <string name="networkConnectionError">Erro na conexão com o servidor</string>
+    <string name="mainMenuListViewOpt1">Encontrar Cerveja</string>
+	
 </resources>
