@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -12,8 +13,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import br.jabarasca.beerapp.utils.GuiUtils;
 import br.jabarasca.beerapp.utils.HtmlDownloaderTask;
@@ -66,6 +70,8 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 			ListView listView = (ListView)findViewById(R.id.findBeerSearchListView);
 			GuiUtils.setListViewArrayAdapter(this, listView, R.layout.list_view_item, R.id.listItemTxtViewOpt, 
 					beerNames);
+			
+			setFindBeerListViewItemsListener(listView);
 		}
 		else {
 			Toast.makeText(this, getResources().getString(R.string.networkConnectionError), Toast.LENGTH_SHORT).show();
@@ -89,7 +95,7 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
     }
 
 	private void getListOfBeersFromWeb(String url) {
-		HtmlDownloaderTask downloadTask = new HtmlDownloaderTask(this, this);
+		HtmlDownloaderTask downloadTask = new HtmlDownloaderTask(this);
 		if(downloadTask.networkIsAvailable) {
 			loadProgressAnimation(R.layout.progress_bar, R.id.findBeerRelLayContent, this);
 			downloadTask.execute(url);
@@ -111,7 +117,19 @@ public class FindBeerActivity extends ActionBarActivity implements DownloaderPos
 		parentLayout.removeView(progressBarRelLay);
 	}
 	
-	
+	private void setFindBeerListViewItemsListener(ListView listView) {
+		final ActionBarActivity actionBarActivity = this;
+		AdapterView.OnItemClickListener listViewItemAction = new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> listView, View listItemViewGroupLayout, int itemPosition, long itemRowId) {
+				Intent intent = new Intent(actionBarActivity.getApplicationContext(), BeerDetailActivity.class); //HardCoded Activity.
+				TextView beerName = (TextView)((ViewGroup)listItemViewGroupLayout).getChildAt(1);
+				intent.putExtra("BeerName", beerName.getText());
+				actionBarActivity.startActivity(intent);
+			}
+		};
+		listView.setOnItemClickListener(listViewItemAction);
+	}//End setListViewItemsListener.
 	
 	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

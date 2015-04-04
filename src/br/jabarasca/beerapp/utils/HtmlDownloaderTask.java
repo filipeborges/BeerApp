@@ -10,24 +10,25 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 
 import android.content.Context;
+import android.support.v7.app.ActionBarActivity;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 
 public class HtmlDownloaderTask extends AsyncTask<String, Void, String> {
-	private final String NULL_POINTER_EXCEPTION_MSG = "DownloaderPostAction cannot be NULL."; 
+	private final String NULL_POINTER_ERROR_MSG = "Activity is NULL.";
 	private final int READ_TIMEOUT_MILLIS = 10000, CONN_TIMEOUT_MILLIS = 15000;
 	
 	private DownloaderPostAction postAction;
 	public boolean networkIsAvailable;
 	
-	public HtmlDownloaderTask(DownloaderPostAction postAction, Context context) {
-		verifyNetworkConnection(context);
-		if(postAction == null) {
-			throw new NullPointerException(NULL_POINTER_EXCEPTION_MSG);
+	public HtmlDownloaderTask(ActionBarActivity activity) {
+		if(activity == null) {
+			throw new NullPointerException(NULL_POINTER_ERROR_MSG);
 		}
 		else {
-			this.postAction = postAction;
+			verifyNetworkConnection(activity.getApplicationContext());
+			postAction = (DownloaderPostAction)activity;
 		}
 	}
 	

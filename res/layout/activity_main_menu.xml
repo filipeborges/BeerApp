@@ -21,6 +21,6 @@
     
     <ListView
         android:id="@+id/mainMenuNavDrawerListView"
-        style="@style/mainMenuNavDrawerListView" />
+        style="@style/navDrawer" />
     
 </android.support.v4.widget.DrawerLayout>

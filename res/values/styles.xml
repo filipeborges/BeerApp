@@ -17,6 +17,17 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <!-- @@@@@@@@@@@@@@@@@@@@@ navigation drawer layout commom properties @@@@@@@@@@@@@@@@@@@@@@@ -->
+    <style name="navDrawer">
+        <item name="android:layout_width">240dp</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_gravity">left</item>
+		<item name="android:background">#222222</item>
+		<item name="android:choiceMode">singleChoice</item>
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:dividerHeight">0dp</item> 
+    </style>
+    
     <!-- @@@@@@@@@@@@@@@@@@@@@ activity_main.xml Styles @@@@@@@@@@@@@@@@@@@@@@ -->
     <style name="mainImgViewBgdColor">
         <item name="android:src">#000000</item>
@@ -48,15 +59,6 @@
         <item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
     </style>
-    <style name="mainMenuNavDrawerListView">
-        <item name="android:layout_width">240dp</item>
-		<item name="android:layout_height">match_parent</item>
-		<item name="android:layout_gravity">left</item>
-		<item name="android:background">#222222</item>
-		<item name="android:choiceMode">singleChoice</item>
-        <item name="android:divider">@android:color/transparent</item>
-        <item name="android:dividerHeight">0dp</item> 
-    </style>
     
     <!-- @@@@@@@@@@@@@@@@@@@@@ activity_find_beer.xml Styles @@@@@@@@@@@@@@@@@@@@@@ -->
     <style name="findBeerSearchListView">
@@ -64,14 +66,11 @@
         <item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">match_parent</item>
     </style>
- 	<style name="findBeerNavDrawerListView">
-        <item name="android:background">#222222</item>
-        <item name="android:layout_width">240dp</item>
-		<item name="android:layout_height">match_parent</item>
-		<item name="android:layout_gravity">left</item>
-		<item name="android:choiceMode">singleChoice</item>
-		<item name="android:divider">@android:color/transparent</item>    
-		<item name="android:dividerHeight">0dp</item>   
+    
+    <!-- @@@@@@@@@@@@@@@@@@@@@ activity_beer_detail.xml Styles @@@@@@@@@@@@@@@@@@@@@@ -->
+    <style name="beerDetailImageView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
     
  	<!-- @@@@@@@@@@@@@@@@@@@@@ list_view_item.xml Styles @@@@@@@@@@@@@@@@@@@@@@ -->
